@@ -16,15 +16,12 @@ func (l *ListNode) String() string {
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	var previous *ListNode
-	var first *ListNode
+	head := &ListNode{}
+	current := head
 	lhs := l1
 	rhs := l2
 	carriage := 0
-	for {
-		if rhs == nil && lhs == nil && carriage == 0 {
-			break
-		}
+	for rhs != nil && lhs != nil {
 		lhsValue := 0
 		rhsValue := 0
 		if rhs != nil {
@@ -35,18 +32,15 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			lhsValue = lhs.Val
 			lhs = lhs.Next
 		}
-
-		sum := (rhsValue + lhsValue + carriage) % 10
-		carriage = (rhsValue + lhsValue + carriage) / 10
-		node := &ListNode{Val: sum}
-		if previous != nil {
-			previous.Next = node
-		} else {
-			first = node
-		}
-		previous = node
+		sum := rhsValue + lhsValue + carriage
+		carriage = sum / 10
+		current.Next = &ListNode{Val: sum % 10}
+		current = current.Next
 	}
-	return first
+	if carriage > 0 {
+		current.Next = &ListNode{Val: carriage}
+	}
+	return head.Next
 }
 
 func main() {
