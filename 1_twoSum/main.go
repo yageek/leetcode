@@ -1,6 +1,6 @@
 package main
 
-import (gi
+import (
 	"fmt"
 )
 
