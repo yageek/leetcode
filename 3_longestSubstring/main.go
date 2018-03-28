@@ -1,7 +1,5 @@
 package main
 
-import "math"
-
 func lengthOfLongestSubstring(s string) int {
 	elements := map[byte]interface{}{}
 	start := 0
@@ -11,7 +9,10 @@ func lengthOfLongestSubstring(s string) int {
 		if _, hasElements := elements[s[end]]; !hasElements {
 			elements[s[end]] = nil
 			end++
-			max = int(math.Max(float64(max), float64(end-start)))
+			length := end - start
+			if length > max {
+				max = length
+			}
 		} else {
 			delete(elements, s[start])
 			start++
